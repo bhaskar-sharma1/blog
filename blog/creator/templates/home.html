@@ -1,0 +1,103 @@
+{% extends 'base/base.html' %}
+{% block css %}
+<style>
+
+.category img{
+    height: 80px;
+}
+.blog-box{
+    padding: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    /* transition: transform .2s; */
+}
+.blog-box img{
+    height: 260px;
+}
+.box-text{
+    background: rgba(0, 0, 0, 0.5);
+    padding-left: 8px;
+    height: 57px;
+}
+.carousel-item img{
+    width: 100%;
+    height: 400px;
+}
+.carousel{
+    border: 5px solid #000;
+    border-radius: 2px;
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="navigation d-flex">
+    <a href="javascript:void(0);" class="">Home</a>
+</div>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success" role="alert">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+<!-- HOME COVER IMAGE SECTIONS -->
+<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="10000">
+        <img src="/static/images/home/1.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="/static/images/home/2.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/static/images/home/3.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/static/images/home/4.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/static/images/home/5.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/static/images/home/6.jpg" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+<!-- HOME COVER IMAGE SECTION END -->
+
+
+<!-- BLOG SECTION START -->
+<div class="row ms-1 me-1">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-danger" role="alert">{{message}}</div>
+        {% endfor %}
+    {% endif %}
+
+{% for blog in blogs %}
+    <div class="col-md-4 mt-1">
+        <div class="card bg-dark text-white blog-box">
+            <img src="/static/media/{{blog.cover_image}}" class="card-img" alt="...">
+            <div class="card-img-overlay">
+                <div class="box-text">
+                    <h5 class="card-title d-inline">{{blog.title|truncatewords:13}}</h5>
+                    <a href="{% url 'blog' blog.id %}" class="d-inline text-white fst-italic">..click to read</a>
+                </div>
+              <p class="card-text mb-2"></p>
+            </div>
+            <div class="card-footer" style="padding:2px 3px 1px 2px;">
+                Last Updated : {{blog.updated_at|date:"d M Y"}}
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+<!-- BLOG SECTION ENDS -->
+
+{% endblock %}

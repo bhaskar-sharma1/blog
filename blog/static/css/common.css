@@ -1,0 +1,26 @@
+.login-form{
+    margin-top:7em;
+}
+.login-form .card{
+    width: 510px;
+}
+.register-form .card{
+    width: 510px;
+}
+.custom-icon img{
+    height:40px;
+    border-radius:50%;
+}
+.navigation{
+    background-color: #348fc0;
+    color: white;
+    padding: 10px 14px;
+}
+.navigation a{
+    color: #fff;
+    padding: 0px 10px;
+    text-decoration: none;
+}
+.navbar-brand img{
+    height: 25px;
+}

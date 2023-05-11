@@ -1,0 +1,85 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block css %}
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<style>
+.ql-editor{
+    min-height: 300px;
+    border:4px solid #b4d2dc;
+}
+.ql-toolbar{
+    border-top: 4px solid #b4d2dc !important;
+    border-right: 4px solid #b4d2dc !important;
+    border-left: 4px solid #b4d2dc !important;
+}
+.vLargeTextField{
+    border: 1px solid #b4d2dc;
+    border-radius: 5px;
+}
+.cover-image-box img{
+    height: 86px;
+    border: 1px solid #000;
+    border-radius: 15px;
+}
+.error-message{
+    color: #ff0000;
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="navigation d-flex">
+    <a href="" class="">Home</a> &#62; <a href="" class="">add blog</a>
+</div>
+<div class="container">
+    <div class="creator">
+        <div class="h3 mt-3 text-primary d-flex justify-content-center text-decoration-underline">Write Your Blog</div>
+        <form action="{% url 'add_blog' %}" id="category-form" class="mt-5" method="post" enctype='multipart/form-data'>
+            {% csrf_token %}
+            <div class="row">
+                <div class="mb-3 col-xs-4 col-sm-4">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-select" name="category" id="category" aria-label="Select Category">
+                        <option selected value="-1">Select Category</option>
+                        {% for category in categories %}
+                            <option value="{{category.id}}">{{category.category_name}}</option>
+                        {% endfor %}
+                      </select>
+                    <p class="category-error error-message"></p>
+                </div>
+                <div class="mb-3 col-xs-4 col-sm-4">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" name="title" id="title" class="form-control" placeholder="Title">
+                    <p class="title-error error-message"></p>
+                </div>
+                <div class="mb-4 col-xs-6 col-sm-4">
+                    <label for="about" class="form-label">About</label>
+                    <input type="text" name="about" id="about" class="form-control" placeholder="About">
+                    <p class="about-error error-message"></p>
+                </div>
+                <div class="mb-4 col-xs-4 col-sm-4">
+                    <label for="cover_image" class="form-label">Cover Image</label>
+                    <input class="form-control" name="cover_image" type="file" id="cover_image">
+                    <p class="cover-image-error error-message"></p>
+                </div>
+                <div class="mb-4 col-xs-4 col-sm-4">
+                    <span class="cover-image-box" style="height:25px"></span>
+                </div>
+            </div>
+            
+            <label for="body" class="form-label">Description:</label>
+            <p class="description-error error-message"></p>
+            <div id="editor"></div>
+            <textarea name="description" id="description" cols="1000" rows="1000" hidden></textarea>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                <button class="btn btn-light me-md-2" type="button">Cancel</button>
+                <button class="btn btn-primary" id="category-save-btn" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="/static/js/quillCode.js"></script>
+<script src="/static/js/add_blog.js"></script>
+{% endblock %}

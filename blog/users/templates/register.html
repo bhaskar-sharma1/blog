@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block css %}{% endblock %}
+{% block content %}
+<div class="navigation d-flex">
+    <a href="{% url 'home' %}" class="">Home</a> &#62; <a href="javascript:void(0);" class="">Register</a>
+</div>
+<div class="conatiner align-self-center">
+    <div class="d-flex justify-content-center register-form mt-5">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h2 class="d-flex justify-content-center register-heading">Register</h2>
+            </div>
+            <div class="card-body">
+                <!-- LOGIN FORM -->
+                <form action="{% url 'register' %}" method="POST" id="register-form">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="text" name="email" id="email" class="form-control">
+                    <p class="email-error" style="color:#ff0000;font-weight:500"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">User-Name:</label>
+                    <input type="text" name="username" id="username" class="form-control">
+                    <p class="username-error" style="color:#ff0000;font-weight:500"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" name="password" id="password" class="form-control">
+                    <p class="password-error" style="color:#ff0000;font-weight:500"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Confirm Password:</label>
+                    <input type="password" name="confirm-password" id="confirm-password" class="form-control">
+                    <p class="confirm-password-error" style="color:#ff0000;font-weight:500"></p>
+                </div>
+                <input type="submit" class="btn btn-primary" id="register-btn" value="Submit">
+                <div class="have-account d-flex justify-content-end">
+                    already have an account ? <a href="{% url 'sign_in' %}">&nbsp;click here</a>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="/static/js/register.js"></script>
+{% endblock %}

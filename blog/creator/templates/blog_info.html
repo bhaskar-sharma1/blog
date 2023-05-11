@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block css %}
+<style>
+.ql-editor{
+    margin-bottom: 2px;
+}
+.ql-editor img{
+    width: 100%;
+}
+.blog-row{
+    width: 100%;
+    overflow: hidden;
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="navigation d-flex">
+    <a href="{% url 'home' %}" class="">Home</a> &#62; <a href="javascript:void(0);" class="">{{blog.category|title}} Blog</a>
+</div>
+<div class="row blog-row">
+    <div class="col-sm-12 col-xs-12 ms-3 me-3" style="font-family:serif;">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success" role="alert">{{message}}</div>
+            {% endfor %}
+        {% endif %}
+        <div class="mt-1">
+            <!-- <div class="d-inline fst-italic"> <span class="fw-bolder"></div> -->
+            
+        </div>
+        <div class="blog-box">
+            <p class="h2" style="color:blueviolet;font-style:italic;">{{blog.title}}&nbsp;</p>
+        </div>
+        <div class="blog-about" style="font-family:serif;">
+            {{blog.about}}
+        </div>
+        <div class="float-start fst-italic mt-3">
+            {% if request.user.is_authenticated %}
+                {% if request.user.id == blog.author.id %}
+                    <a href="{% url 'edit_blog' blog.id %}" class="edit-blog d-inline" style="text-decoration:none;"><i class="bi bi-pencil-square"></i> Edit blog </a>
+                {% endif %}
+            {% endif %}
+        </div> 
+        <div class="d-inline float-end fst-italic mt-3">{{blog.updated_at}}</div>
+        <div class="d-inline float-end fst-italic fw-bolder mt-3">Last Updated : &nbsp;</div>
+        <br>
+        <hr>
+        <p>{{blog.body|safe}}</p>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    $('.ql-editor').attr('contenteditable',false);
+    $('.ql-tooltip').css('display','none');
+    $('.ql-clipboard').attr('contenteditable',false);
+    $('.ql-clipboard').css('display','none');
+</script>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block css %}{% endblock %}
+{% block content %}
+<div class="navigation d-flex">
+    <a href="{% url 'home' %}" class="">Home</a> &#62; <a href="javascript:void(0);" class="">Login</a>
+</div>
+<div class="conatiner align-self-center">
+    <div class="d-flex justify-content-center login-form">
+        <div class="card">
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show text-center mb-0" role="alert">
+                    {{message}} <span class="float-end me-1" id="alert-popup" aria-hidden="true" style="cursor:pointer;font-size:20px;">&times;</span>
+                  </div>
+                {% endfor %}
+            {% endif %}
+            <div class="card-header bg-dark text-white">
+                <h2 class="d-flex justify-content-center login-heading">Login</h2>
+            </div>
+            <div class="card-body">
+                <!-- LOGIN FORM -->
+                <form action="{% url 'sign_in' %}" method="POST" id="login-form">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="email" class="form-label">User name:</label>
+                    <input type="text" name="username" id="username" class="form-control">
+                    <p class="username-error" style="color:#ff0000;font-weight:500"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" name="password" id="password" class="form-control">
+                    <p class="password-error" style="color:#ff0000;font-weight:500"></p>
+                </div>
+                <input type="submit" class="btn btn-primary" id="login-btn" value="Submit">
+                <div class="no-account d-flex justify-content-end">
+                    Don't have an account ? <a href="{% url 'register' %}">click here</a>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="/static/js/login.js"></script>
+<script>
+$("#alert-popup").on('click',(e)=>{
+    $('.alert').fadeOut();
+})
+</script>
+{% endblock %}

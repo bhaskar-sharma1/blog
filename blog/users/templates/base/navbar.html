@@ -1,0 +1,79 @@
+
+<!-- Modal User Start -->
+{% if request.user.is_authenticated %}
+<div class="modal fade" id="profile-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Hello {{request.user}}&nbsp;<a href="{% url 'profile' %}"><i class="bi bi-pencil-square"></i></a></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-4 fw-bolder">Full Name </div>
+          <div class="col-sm-8 mb-2">{% if request.user.first_name %}{{request.user.first_name}}{% else %}------{% endif %}</div>
+          <hr>
+          <div class="col-sm-4 fw-bolder">Email </div>
+          <div class="col-sm-8 mb-2">{% if request.user.email %}{{request.user.email}}{% else %}------{% endif %}</div>
+          <hr>
+          <div class="col-sm-4 fw-bolder">User name </div>
+          <div class="col-sm-8 mb-2">{% if request.user.username %}@{{request.user.username}}{% else %}------{% endif %}</div>
+          <hr>
+          <div class="col-sm-4 fw-bolder">Mobile Number </div>
+          <div class="col-sm-8 mb-2">{% if request.user.authuserextension.mobile %}{{request.user.authuserextension.mobile}}{% else %}------{% endif %}</div>
+          <hr>
+          <div class="col-sm-4 fw-bolder">Address </div>
+          <div class="col-sm-8 mb-2">{% if request.user.authuserextension.address %}{{request.user.authuserextension.address}}{% else %}------{% endif %}</div>
+          <hr>
+          <div class="col-sm-4 fw-bolder">
+            <a href="" class="btn {% if request.user.authuserextension.instagram %}insta-link{% else %}btn-secondary disabled{% endif %}">
+              <i class="bi bi-instagram"> instagram</i>
+            </a>
+          </div>
+          <div class="col-sm-4 fw-bolder">
+            <a href="" class="btn {% if request.user.authuserextension.instagram %}facebook-link{% else %}btn-secondary disabled{% endif %}">
+              <i class="bi bi-facebook"> facebook</i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border:1px solid #000">Close</button>
+        <a href="{% url 'sign_out' %}" type="button" class="btn btn-danger">LogOut</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+<!-- model end -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><img src="/static/images/logos/blogWeb.png" alt=""></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'add_blog' %}">Create Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'my_blog_list' %}">My Blogs</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </li> -->
+        </ul>
+        {% if not request.user.is_authenticated %}
+        <a href="{% url 'sign_in' %}" class="btn bg-primary text-light">Login</a>
+        {% else %}
+        <a data-bs-toggle="modal" data-bs-target="#profile-modal" class="custom-icon me-1" style="cursor:pointer">
+          <img src="{% if request.user.authuserextension.profile_photo %}/static/media/{{request.user.authuserextension.profile_photo}}{% else %}/static/images/profilelogo.jpg{% endif %}" title="profile" alt="avatar">
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>

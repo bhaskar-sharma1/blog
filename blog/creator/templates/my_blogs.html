@@ -1,0 +1,85 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block css %}
+<style>
+.blog-box{
+    padding: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    /* transition: transform .2s; */
+}
+.blog-box img{
+    height: 260px;
+}
+.box-text{
+    background: rgba(0, 0, 0, 0.5);
+    padding-left: 8px;
+    height: 57px;
+}
+.card-img-overlay{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.trash-blog{
+    z-index: 10;
+    position: relative;
+    float: right;
+    margin-right: 11px;
+    font-size: 21px;
+}
+.edit-blog{
+    z-index: 10;
+    position: relative;
+    float: right;
+    margin-right: 11px;
+    font-size: 21px;
+}
+/* .blog-box:hover{
+    transform: scale(1.25);
+} */
+</style>
+{% endblock %}
+{% block content %}
+<div class="navigation d-flex">
+    <a href="{% url 'home' %}" class="">Home</a> &#62; <a href="javascript:void(0);" class="">My Blogs</a>
+</div>
+<div class="row ms-1 me-1">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-danger" role="alert">{{message}}</div>
+        {% endfor %}
+    {% endif %}
+{% for blog in blogs %}
+    <div class="col-md-4 mt-1">
+        <div class="card bg-dark text-white blog-box">
+            <img src="/static/media/{{blog.cover_image}}" class="card-img" alt="...">
+            <div class="card-img-overlay">
+                <div class="box-text">
+                    <h5 class="card-title d-inline">{{blog.title|truncatewords:13}}</h5>
+                    <a href="{% url 'blog' blog.id %}" class="d-inline text-white fst-italic">..click to read</a>
+                </div>
+              <p class="card-text mb-2"></p>
+            </div>
+            <div class="card-footer" style="padding:2px 3px 1px 2px;">
+                Last Updated : {{blog.updated_at|date:"d M Y"}}
+                <!-- delete blog link -->
+                <a href="{% url 'delete_blog' blog.id %}" class="text-danger trash-blog">
+                    <i class="bi bi-trash-fill"></i>
+                </a>
+                <!-- edit blog link -->
+                <a href="{% url 'edit_blog' blog.id %}" class="text-primary edit-blog">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
+{% block js %}
+<script>
+$('.ql-editor').attr('contenteditable',false);
+$('.ql-clipboard').attr('contenteditable',false);
+$('.ql-tooltip').html("");
+</script>
+{% endblock %}
