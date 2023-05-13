@@ -24,3 +24,6 @@
 .navbar-brand img{
     height: 25px;
 }
+.errorClass{
+    color:#FF0000;
+}
