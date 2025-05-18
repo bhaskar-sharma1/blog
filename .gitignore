@@ -1,0 +1,30 @@
+# Ignore compiled Python files and cache folders
+__pycache__/
+*.pyc
+
+
+# Virtual Environments
+.venv/
+venv/
+
+# Environment Files
+.env
+
+# SQLite and logs
+*.sqlite3
+*.log
+log/
+
+# IDE files
+.vscode/
+.idea/
+
+# MacOS junk
+.DS_Store
+
+# Django static build folder
+/blog/staticfiles/
+
+# Ignore migration pyc files
+*/migrations/__pycache__/
+*/migrations/*.pyc
