@@ -1,6 +1,8 @@
 {% extends 'base/base.html' %}
 {% load static %}
-{% block css %}{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
 {% block content %}
 <div class="navigation d-flex">
     <a href="{% url 'home' %}" class="">Home</a> &#62; <a href="javascript:void(0);" class="">Login</a>

@@ -1,12 +1,14 @@
 {% extends 'base/base.html' %}
 {% load static %}
-{% block css %}{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
 {% block content %}
 <div class="navigation d-flex">
     <a href="{% url 'home' %}" class="">Home</a> &#62; <a href="javascript:void(0);" class="">Register</a>
 </div>
-<div class="conatiner align-self-center">
-    <div class="d-flex justify-content-center register-form mt-5">
+<div class="conatiner align-self-center mt-5 mb-5">
+    <div class="d-flex justify-content-center register-form">
         <div class="card">
             <div class="card-header bg-dark text-white">
                 <h2 class="d-flex justify-content-center register-heading">Register</h2>
